@@ -1,7 +1,9 @@
+"use strict";
+
 const express = require('express');
 const fs = require('fs');
-const app = express();
 const doT = require('dot');
+const app = express();
 
 app.engine('jst', (filePath, options, callback) => {
     fs.readFile(filePath, (err, content) => {
@@ -9,9 +11,15 @@ app.engine('jst', (filePath, options, callback) => {
             return callback(err); 
         }
 
-        var templateFn = doT.template(content.toString());
+        let defs = {};
 
-        return callback(null, templateFn(options));
+        defs.loadfile = (path) => {
+            return fs.readFileSync(process.argv[1].replace(/\/[^\/]*$/, path));
+        };
+
+        var template = doT.template(content.toString(), undefined, defs);
+
+        return callback(null, template(options));
     });
 });
 
@@ -19,15 +27,9 @@ app.set('views', './templates');
 app.set('view engine', 'jst');
 
 app.get('/', (request, response) => {
-    response.render('index', { 
-        text: 'Good afternoon!' 
+    response.render('index', {
+        header: 'Hello, World!' 
     });
-});
-
-app.get('/api', (request, response) => {
-    response
-        .status(200)
-        .send({hello: "world"});
 });
 
 app.listen(3000, function () {
