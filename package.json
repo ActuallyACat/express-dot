@@ -1,0 +1,12 @@
+{
+  "name": "node-iso",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Ally Beaton <info@allybeaton.com>",
+  "license": "MIT",
+  "dependencies": {
+    "dot": "^1.1.2",
+    "express": "^4.16.2",
+    "node": "^8.3.0"
+  }
+}

@@ -1,0 +1,23 @@
+{{##def.test:
+	{{=it.text}}
+#}}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Example Page</title>
+</head>
+<body>
+
+<h1>{{#def.test}}</h1>
+
+<div id="node-iso-boot"></div>
+
+<script> 
+window.addEventListener("load", function(event) {
+	alert("All resources finished loading!");
+});
+</script>	
+</body>
+</html>
